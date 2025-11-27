@@ -34,7 +34,7 @@ class Forge < Formula
     TOML
 
     cd forge_home do
-      system "bun", "add", "file://#{buildpath}/package"
+      system "bun", "add", "file://#{buildpath}"
     end
 
     forge_cli = "#{forge_home}/node_modules/@planet57/forge/bin/forge"
