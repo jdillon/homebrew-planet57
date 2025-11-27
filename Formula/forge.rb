@@ -12,43 +12,19 @@ class Forge < Formula
   depends_on "oven-sh/bun/bun"
 
   def install
-    forge_home = ENV["FORGE_HOME"] || "#{Dir.home}/.forge"
+    # Install package to libexec
+    libexec.install Dir["*"]
 
-    system "mkdir", "-p", "#{forge_home}/config", "#{forge_home}/state", "#{forge_home}/cache", "#{forge_home}/logs"
-
-    File.write("#{forge_home}/package.json", <<~JSON)
-      {
-        "name": "forge-meta",
-        "version": "1.0.0",
-        "private": true
-      }
-    JSON
-
-    File.write("#{forge_home}/bunfig.toml", <<~TOML)
-      [install]
-      exact = true
-      dev = false
-      peer = true
-      optional = false
-      auto = "disable"
-    TOML
-
-    cd forge_home do
-      system "bun", "add", "file://#{buildpath}"
+    # Install dependencies
+    cd libexec do
+      system "bun", "install", "--production"
     end
 
-    forge_cli = "#{forge_home}/node_modules/@planet57/forge/bin/forge"
-    unless File.exist?(forge_cli)
-      odie "Installation failed: forge CLI not found"
-    end
-
-    bin.install_symlink forge_cli
-  end
-
-  def caveats
-    <<~EOS
-      Forge installed to #{ENV["FORGE_HOME"] || "~/.forge"}
-    EOS
+    # Create wrapper script that runs forge from libexec
+    (bin/"forge").write <<~SH
+      #!/bin/bash
+      exec "#{Formula["bun"].opt_bin}/bun" run "#{libexec}/bin/forge" "$@"
+    SH
   end
 
   test do
