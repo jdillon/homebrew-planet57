@@ -4,10 +4,10 @@
 class Forge < Formula
   desc "Modern CLI framework for deployments"
   homepage "https://github.com/jdillon/forge"
-  url "https://github.com/jdillon/forge/releases/download/v0.1.1/planet57-forge-0.1.1.tgz"
-  sha256 "cca857e82659ec5f0b90450e94e7fc14a040bac54e8daa597ea06c70dbb1172a"
+  url "https://github.com/jdillon/forge/releases/download/v0.1.2/planet57-forge-0.1.2.tgz"
+  sha256 "6e3cf028e52e9ba8d885f09407eaf39e7bd1f2c6c150ee76d6f2b5e387c2db8b"
   license "Apache-2.0"
-  version "0.1.1"
+  version "0.1.2"
 
   depends_on "oven-sh/bun/bun"
 
@@ -21,12 +21,9 @@ class Forge < Formula
   end
 
   def caveats
-    <<~EOS
-      First run will complete installation to ~/.forge
-
-      User data (config, plugins, state) persists across upgrades.
-      To fully remove, also delete ~/.forge after uninstall.
-    EOS
+    "First run will complete installation to ~/.forge\n\n" \
+    "User data (config, plugins, state) persists across upgrades.\n" \
+    "To fully remove, also delete ~/.forge after uninstall.\n"
   end
 
   test do
