@@ -4,10 +4,10 @@
 class Commando < Formula
   desc "Modern CLI framework for deployments"
   homepage "https://github.com/jdillon/commando"
-  url "https://github.com/jdillon/commando/releases/download/v0.1.3/planet57-commando-0.1.3.tgz"
-  sha256 "PLACEHOLDER"
+  url "https://github.com/jdillon/commando/releases/download/v0.2.0/planet57-commando-0.2.0.tgz"
+  sha256 "b58f8a4b226c0f604ebbbbd4a9d8c4e99e46bd44a9a092f5ca93ea6d900e7e0b"
   license "Apache-2.0"
-  version "0.1.3"
+  version "0.2.0"
 
   depends_on "oven-sh/bun/bun"
 
@@ -21,12 +21,9 @@ class Commando < Formula
   end
 
   def caveats
-    <<~EOS
-      First run will complete installation to ~/.commando
-
-      User data (config, plugins, state) persists across upgrades.
-      To fully remove, also delete ~/.commando after uninstall.
-    EOS
+    "First run will complete installation to ~/.commando\n\n" \
+    "User data (config, plugins, state) persists across upgrades.\n" \
+    "To fully remove, also delete ~/.commando after uninstall.\n"
   end
 
   test do
